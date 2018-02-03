@@ -35,16 +35,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final TextView mTextView = findViewById(R.id.textinfo);
+//                queue.getCache().clear(); // ugly hack
                 queue.add(new LoginRequest(((TextView) findViewById(R.id.txtUsername)).getText().toString(), ((TextView) findViewById(R.id.txtPassword)).getText().toString()));
             }
         });
     }
 
     class LoginRequest extends StringRequest {
-        private final String username, password;
 
         LoginRequest(String username, String password) {
-            super(Method.GET, url + "/login", new Response.Listener<String>() {
+            super(Method.GET, url + "/login?username="+username+"&password="+password, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
                     // Display the first 500 characters of the response string.
@@ -56,16 +56,6 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("That didn't work!");
                 }
             });
-            this.username = username;
-            this.password = password;
-        }
-
-        @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            HashMap<String, String> map = new HashMap<>();
-            map.put("username", username);
-            map.put("password", password);
-            return map;
         }
     }
 }
