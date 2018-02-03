@@ -5,6 +5,11 @@
     <title>Users</title>
 </head>
 <body>
-user1
+{% for user in users %}
+<div>
+    <span>{{ user.first }}</span>
+    <span>{{ user.second}}</span>
+</div>
+{% endfor %}
 </body>
 </html>

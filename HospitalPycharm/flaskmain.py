@@ -28,7 +28,8 @@ def addinguser():
 
 @app.route("/adduser")
 def adduser():
-
+    users.append({"first": request.args.get("fname"), "second": request.args.get("lname")})
+    print("added")
     print(request.args.get("fname"))
     print(request.args.get("lname"))
     return redirect("/")
@@ -36,7 +37,7 @@ def adduser():
 
 @app.route("/accessusers")
 def accessusers():
-    return render_template("accessusers.html")
+    return render_template("accessusers.html", users=users)
 
 @app.route ("/type_Luotai")
 def type_luotai ():
