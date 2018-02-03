@@ -1,4 +1,4 @@
-function doThing() {
+function addUser() {
     $.getJSON("/yeet", {
         message: "yolo"
     });
