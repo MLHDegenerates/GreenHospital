@@ -51,10 +51,11 @@ def add_staff():
     new = {
         "first": fname,
         "last": lname,
+        "type": request.args.get("type"),
         "username":
             (fname[:3] if len(fname) > 3 else fname)
             + (lname[:3] if len(lname) > 3 else lname)
-            + str(ord(fname[0]) + ord(lname[0])),
+            + str(sum(ord(a) for a in (fname+lname)) % 100),
         "password": request.args.get("pass")
     }
     staff.append(new)
@@ -77,7 +78,7 @@ def login():
             return "okay"
     return "bad"
 
-@app.route("edit")
+@app.route("/edit")
 def edit():
     print(request.args.get("pati#"))
     print(request.args.get("fname"))
