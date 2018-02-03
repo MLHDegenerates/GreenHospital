@@ -77,6 +77,14 @@ def login():
             return "okay"
     return "bad"
 
+@app.route("edit")
+def edit():
+    print(request.args.get("pati#"))
+    print(request.args.get("fname"))
+    print(request.args.get("lname"))
+    print(request.args.get("sevr"))
+    return redirect("/")
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
