@@ -29,10 +29,6 @@ def adduser():
     print(request.args.get("lname"))
     return redirect("/")
 
-@app.route ("/do_other_thing")
-def method ():
-    print ("XD")
-    return "XD"
 
 @app.route ("/type_Luotai")
 def type_luotai ():
