@@ -38,11 +38,10 @@ def adduser():
 def accessusers():
     return render_template("accessusers.html")
 
-
-if __name__ == "__main__":
-    app.run()
-
 @app.route ("/type_Luotai")
 def type_luotai ():
     print ("Luotai")
     return render_template("addinguser.html")
+
+if __name__ == "__main__":
+    app.run()
