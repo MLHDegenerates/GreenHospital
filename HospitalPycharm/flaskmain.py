@@ -22,8 +22,11 @@ def form_add_patient():
 
 @app.route("/add_patient")
 def add_patient():
-    patients.append(
-        {"first": request.args.get("fname"), "last": request.args.get("lname"), "severity": request.args.get("sevr")})
+    patients.append({
+        "first": request.args.get("fname"),
+        "last": request.args.get("lname"),
+        "severity": request.args.get("sevr")
+    })
     print("added")
     print(request.args.get("fname"))
     print(request.args.get("lname"))
@@ -43,10 +46,19 @@ def form_add_staff():
 
 @app.route("/add_staff")
 def add_staff():
-    staff.append({"first": request.args.get("fname"), "last": request.args.get("lname")})
-    print("added")
-    print(request.args.get("fname"))
-    print(request.args.get("lname"))
+    fname = request.args.get("fname")
+    lname = request.args.get("lname")
+    new = {
+        "first": fname,
+        "last": lname,
+        "username":
+            (fname[:3] if len(fname) > 3 else fname)
+            + (lname[:3] if len(lname) > 3 else lname)
+            + str(ord(fname[0]) + ord(lname[0])),
+        "password": request.args.get("pass")
+    }
+    staff.append(new)
+    print(new)
     return redirect("/")
 
 
@@ -63,8 +75,6 @@ def login():
     for user in staff:
         if user["username"] == username and user["password"] == password:
             return "okay"
-        else:
-            return "notokay"
     return "bad"
 
 @app.route("edit")
