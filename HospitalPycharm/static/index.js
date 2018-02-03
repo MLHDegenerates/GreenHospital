@@ -1,10 +1,5 @@
-function doThing() {
+function addUser() {
     $.getJSON("/yeet", {
-        message: "yolo"
-    });
-}
-function otherButton() {
-    $.getJSON("/bitconnect", {
         message: "yolo"
     });
 }

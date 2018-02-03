@@ -18,11 +18,15 @@ def bitconnect():
     print("yes")
     return"$$$"
 
+@app.route("/addinguser")
+def addinguser():
+    return render_template("addinguser.html")
+
 @app.route("/adduser")
 def adduser():
     print(request.args.get("fname"))
     print(request.args.get("lname"))
-    return "okay"
+    return hello()
 
 if __name__ == "__main__":
     app.run()
