@@ -41,3 +41,8 @@ def accessusers():
 
 if __name__ == "__main__":
     app.run()
+
+@app.route ("/type_Luotai")
+def type_luotai ():
+    print ("Luotai")
+    return render_template("addinguser.html")
