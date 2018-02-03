@@ -9,7 +9,9 @@ nurses = []
 def hello():
     return render_template("index.html")
 
-
+@app.route("/index")
+def index():
+    return redirect("/")
 
 @app.route("/addingpatient")
 def addingpatient():
