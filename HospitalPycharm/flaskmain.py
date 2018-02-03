@@ -68,8 +68,12 @@ def accessnurses():
     return render_template("accessnurses.html", nurses=nurses)
 
 
-
+@app.route("/login", methods=["POST","GET"])
+def login():
+    print(request.args.get("username"))
+    print(request.args.get("password"))
+    return "okay"
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")
