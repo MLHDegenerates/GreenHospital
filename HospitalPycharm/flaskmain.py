@@ -8,18 +8,6 @@ def hello():
     return render_template("index.html")
 
 
-@app.route("/yeet")
-def yeet():
-    print("okay")
-    print(request.args.get("message"))
-    return "kk"
-
-
-@app.route("/bitconnect")
-def bitconnect():
-    print("yes")
-    return "$$$"
-
 
 @app.route("/addinguser")
 def addinguser():
