@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -10,6 +10,7 @@ def hello():
 @app.route("/yeet")
 def yeet():
     print("okay")
+    print(request.args.get("message"))
     return "kk"
 
 if __name__ == "__main__":
