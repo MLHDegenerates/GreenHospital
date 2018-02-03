@@ -7,6 +7,10 @@ app = Flask(__name__)
 def hello():
     return render_template("index.html")
 
+@app.route("/yeet")
+def yeet():
+    print("okay")
+    return "kk"
 
 if __name__ == "__main__":
     app.run()
