@@ -34,7 +34,7 @@ def method ():
     print ("XD")
     return "XD"
 
-@qpp.route ("/type_Luotai")
+@app.route ("/type_Luotai")
 def type_luotai ():
     print ("Luotai")
     return render_template("addinguser.html")
