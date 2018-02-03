@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctors</title>
+</head>
+<body>
+
+{% for doctor in doctors %}
+<div>
+    <span>{{ doctor.first }}</span>
+    <span>{{ doctor.second}}</span>
+</div>
+{% endfor %}
+
+</body>
+</html>
