@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -26,7 +26,7 @@ def addinguser():
 def adduser():
     print(request.args.get("fname"))
     print(request.args.get("lname"))
-    return hello()
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run()
