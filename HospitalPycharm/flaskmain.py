@@ -1,9 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
+import time
 
 app = Flask(__name__)
 staff = []
 patients = []
 
+def compare(x,y):
+    return x["priority"] > y["priority"]
+
+def sortQueue():
+    patients.sort(key=lambda x: x["severity"])
 
 @app.route("/")
 def hello():
@@ -22,12 +28,15 @@ def form_add_patient():
 
 @app.route("/add_patient")
 def add_patient():
-    patients.append(
-        {"first": request.args.get("fname"), "last": request.args.get("lname"), "severity": request.args.get("sevr")})
-    print("added")
-    print(request.args.get("fname"))
-    print(request.args.get("lname"))
-    print(request.args.get("sevr"))
+    new = {
+        "first": request.args.get("fname"),
+        "last": request.args.get("lname"),
+        "severity": request.args.get("sevr"),
+        "time": time.time()
+    }
+    patients.append(new)
+    print(new)
+    sortQueue()
     return redirect("/")
 
 
@@ -43,10 +52,21 @@ def form_add_staff():
 
 @app.route("/add_staff")
 def add_staff():
-    staff.append({"first": request.args.get("fname"), "last": request.args.get("lname")})
-    print("added")
-    print(request.args.get("fname"))
-    print(request.args.get("lname"))
+    fname = request.args.get("fname")
+    lname = request.args.get("lname")
+    new = {
+        "first": fname,
+        "last": lname,
+        "type": request.args.get("type"),
+        "username":
+            (fname[:3] if len(fname) > 3 else fname)
+            + (lname[:3] if len(lname) > 3 else lname)
+            + str(sum(ord(a) for a in (fname+lname)) % 100),
+        "password": request.args.get("pass")
+    }
+    staff.append(new)
+    sortQueue()
+    print(new)
     return redirect("/")
 
 
@@ -63,9 +83,15 @@ def login():
     for user in staff:
         if user["username"] == username and user["password"] == password:
             return "okay"
-        else:
-            return "notokay"
     return "bad"
+
+@app.route("/edit")
+def edit():
+    print(request.args.get("pati#"))
+    print(request.args.get("fname"))
+    print(request.args.get("lname"))
+    print(request.args.get("sevr"))
+    return redirect("/")
 
 
 if __name__ == "__main__":
