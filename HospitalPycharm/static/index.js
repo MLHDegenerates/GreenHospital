@@ -3,3 +3,8 @@ function doThing() {
         message: "yolo"
     });
 }
+function otherButton() {
+    $.getJSON("/bitconnect", {
+        message: "yolo"
+    });
+}

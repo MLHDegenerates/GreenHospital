@@ -13,5 +13,16 @@ def yeet():
     print(request.args.get("message"))
     return "kk"
 
+@app.route("/bitconnect")
+def bitconnect():
+    print("yes")
+    return"$$$"
+
+@app.route("/adduser")
+def adduser():
+    print(request.args.get("fname"))
+    print(request.args.get("lname"))
+    return "okay"
+
 if __name__ == "__main__":
     app.run()
