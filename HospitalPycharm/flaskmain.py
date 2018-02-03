@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
-
+users = []
 
 @app.route("/")
 def hello():
     return render_template("index.html")
+
 
 @app.route("/yeet")
 def yeet():
@@ -13,20 +14,30 @@ def yeet():
     print(request.args.get("message"))
     return "kk"
 
+
 @app.route("/bitconnect")
 def bitconnect():
     print("yes")
-    return"$$$"
+    return "$$$"
+
 
 @app.route("/addinguser")
 def addinguser():
     return render_template("addinguser.html")
 
+
 @app.route("/adduser")
 def adduser():
+
     print(request.args.get("fname"))
     print(request.args.get("lname"))
     return redirect("/")
+
+
+@app.route("/accessusers")
+def accessusers():
+    return render_template("accessusers.html")
+
 
 if __name__ == "__main__":
     app.run()
