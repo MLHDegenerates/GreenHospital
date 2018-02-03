@@ -1,4 +1,4 @@
-print("test");
-print("hi")
-print("Im amazing")
+print("dfdfghdhgtest");
+print("dfdfghdhghi")
+print("dfdfghdhgIm amazing")
 print ("Luotai")
