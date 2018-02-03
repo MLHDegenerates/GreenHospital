@@ -13,6 +13,7 @@ def yeet():
     print(request.args.get("message"))
     return "kk"
 
+
 @app.route("/bitconnect")
 def bitconnect():
     print("yes")
@@ -28,5 +29,12 @@ def adduser():
     print(request.args.get("lname"))
     return redirect("/")
 
-if __name__ == "__main__":
-    app.run()
+@app.route ("/do_other_thing")
+def method ():
+    print ("XD")
+    return "XD"
+
+@qpp.route ("/type_Luotai")
+def type_luotai ():
+    print ("Luotai")
+    return render_template("addinguser.html")
