@@ -1,9 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for
+import time
 
 app = Flask(__name__)
 staff = []
 patients = []
 
+def compare(x,y):
+    return x["priority"] > y["priority"]
+
+def sortQueue():
+    patients.sort(key=lambda x: x["severity"])
 
 @app.route("/")
 def hello():
@@ -22,15 +28,15 @@ def form_add_patient():
 
 @app.route("/add_patient")
 def add_patient():
-    patients.append({
+    new = {
         "first": request.args.get("fname"),
         "last": request.args.get("lname"),
-        "severity": request.args.get("sevr")
-    })
-    print("added")
-    print(request.args.get("fname"))
-    print(request.args.get("lname"))
-    print(request.args.get("sevr"))
+        "severity": request.args.get("sevr"),
+        "time": time.time()
+    }
+    patients.append(new)
+    print(new)
+    sortQueue()
     return redirect("/")
 
 
@@ -59,6 +65,7 @@ def add_staff():
         "password": request.args.get("pass")
     }
     staff.append(new)
+    sortQueue()
     print(new)
     return redirect("/")
 
