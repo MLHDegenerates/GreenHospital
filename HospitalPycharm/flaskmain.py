@@ -20,10 +20,11 @@ def addingpatient():
 
 @app.route("/addpatient")
 def addpatient():
-    users.append({"first": request.args.get("fname"), "second": request.args.get("lname")})
+    users.append({"first": request.args.get("fname"), "second": request.args.get("lname"), "third": request.args.get("sevr")})
     print("added")
     print(request.args.get("fname"))
     print(request.args.get("lname"))
+    print(request.args.get("sevr"))
     return redirect("/")
 
 
