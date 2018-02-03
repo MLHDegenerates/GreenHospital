@@ -1,26 +1,29 @@
 from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
-users = []
-doctors = []
-nurses = []
+staff = []
+patients = []
+
 
 @app.route("/")
 def hello():
     return render_template("index.html")
 
+
 @app.route("/index")
 def index():
     return redirect("/")
 
-@app.route("/addingpatient")
-def addingpatient():
-    return render_template("addingpatient.html")
+
+@app.route("/form_add_patient")
+def form_add_patient():
+    return render_template("form_add_patient.html")
 
 
-@app.route("/addpatient")
-def addpatient():
-    users.append({"first": request.args.get("fname"), "second": request.args.get("lname"), "third": request.args.get("sevr")})
+@app.route("/add_patient")
+def add_patient():
+    patients.append(
+        {"first": request.args.get("fname"), "last": request.args.get("lname"), "severity": request.args.get("sevr")})
     print("added")
     print(request.args.get("fname"))
     print(request.args.get("lname"))
@@ -28,48 +31,42 @@ def addpatient():
     return redirect("/")
 
 
-@app.route("/accesspatients")
-def accesspatients():
-    return render_template("accesspatients.html", users=users)
-
-@app.route("/addingdoctor")
-def addingdoctor():
-    return render_template("addingdoctor.html")
+@app.route("/list_patients")
+def list_patients():
+    return render_template("list_patients.html", patients=patients)
 
 
-@app.route("/adddoctor")
-def adddoctor():
-    doctors.append({"first": request.args.get("fname"), "second": request.args.get("lname")})
+@app.route("/form_add_staff")
+def form_add_staff():
+    return render_template("form_add_staff.html")
+
+
+@app.route("/add_staff")
+def add_staff():
+    staff.append({"first": request.args.get("fname"), "last": request.args.get("lname")})
     print("added")
     print(request.args.get("fname"))
     print(request.args.get("lname"))
     return redirect("/")
 
 
-@app.route("/accessdoctors")
-def accessdoctors():
-    return render_template("accessdoctors.html", doctors=doctors)
-
-@app.route("/addingnurse")
-def addingnurse():
-    return render_template("addingnurse.html")
+@app.route("/list_staff")
+def list_staff():
+    return render_template("list_staff.html", staff=staff)
 
 
-@app.route("/addnurse")
-def addnurse():
-    nurses.append({"first": request.args.get("fname"), "second": request.args.get("lname")})
-    print("added")
-    print(request.args.get("fname"))
-    print(request.args.get("lname"))
-    return redirect("/")
-
-@app.route("/accessnurses")
-def accessnurses():
-    return render_template("accessnurses.html", nurses=nurses)
-
-
-
+@app.route("/login")
+def login():
+    print(request.args)
+    username = request.args.get("username")
+    password = request.args.get("password")
+    for user in staff:
+        if user["username"] == username and user["password"] == password:
+            return "okay"
+        else:
+            return "notokay"
+    return "bad"
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")

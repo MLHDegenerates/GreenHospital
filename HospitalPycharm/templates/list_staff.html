@@ -2,17 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Doctors</title>
+    <title>Nurses</title>
 </head>
 <body>
 
-{% for doctor in doctors %}
+{% for user in staff %}
 <div>
-    <span>{{ doctor.first }}</span>
-    <span>{{ doctor.second}}</span>
+    <span>{{ user.first }}</span>
+    <span>{{ user.last}}</span>
 </div>
 {% endfor %}
-
 <br>
 <br>
 <a href="{{ url_for('index') }}">Back to homepage</a>

@@ -4,26 +4,21 @@
     <script type=text/javascript src="{{ url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
     <script type=text/javascript src="{{ url_for('static', filename='index.js') }}"></script>
     <meta charset="UTF-8">
-    <title>Hospital</title>
+    <title>hospital</title>
 
 </head>
 <body>
 
-<a href="{{ url_for('addingpatient') }}">Add a patient</a>
+<a href="{{ url_for('form_add_patient') }}">Add a patient</a>
 <br>
 <br>
-<a href="{{ url_for('accesspatients') }}">Access patients</a>
+<a href="{{ url_for('list_patients') }}">Access patients</a>
 <br>
 <br>
-<a href="{{ url_for('addingdoctor') }}">Add a doctor</a>
+<a href="{{ url_for('form_add_staff') }}">Add a staff member</a>
 <br>
 <br>
-<a href="{{ url_for('accessdoctors') }}">Access doctors</a>
+<a href="{{ url_for('list_staff') }}">Access staff members</a>
 <br>
-<br>
-<a href="{{ url_for('addingnurse') }}">Add a nurse</a>
-<br>
-<br>
-<a href="{{ url_for('accessnurses') }}">Access nurses</a>
 </body>
 </html>

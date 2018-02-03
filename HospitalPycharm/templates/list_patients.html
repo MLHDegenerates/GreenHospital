@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nurses</title>
+    <title>Users</title>
 </head>
 <body>
-
-{% for nurse in nurses %}
+{% for user in patients %}
 <div>
-    <span>{{ nurse.first }}</span>
-    <span>{{ nurse.second}}</span>
+    <span>{{ user.first }}</span>
+    <span>{{ user.last}}</span>
+    <span>{{ user.severity }}</span>
 </div>
 {% endfor %}
 <br>
