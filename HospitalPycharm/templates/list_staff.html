@@ -4,7 +4,8 @@
     {% for user in staff %}
     <div class="list-user">
         <span>{{ user.first }}</span>
-        <span>{{ user.last}}</span>
+        <span>{{ user.last }}</span>
+        <span>({{ user.username }})</span>
     </div>
     {% endfor %}
 </div>
