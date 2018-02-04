@@ -82,8 +82,8 @@ def login():
     password = request.args.get("password")
     for user in staff:
         if user["username"] == username and user["password"] == password:
-            return "okay"
-    return "bad"
+            return user["first"] + " " + user["last"]
+    return "<Bad Login>"
 
 
 

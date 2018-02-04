@@ -1,5 +1,6 @@
 package ca.dominicphillips.greenhospital;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -29,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -72,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     System.out.println("Response is: " + response);
+                    if (!response.equals("<Bad Login>")) {
+                        Intent myIntent = new Intent(MainActivity.this, ProfileActivity.class);
+                        myIntent.putExtra("name", response);
+                        MainActivity.this.startActivity(myIntent);
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
