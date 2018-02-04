@@ -18,6 +18,7 @@ function onSend() {
 
 function addMessage(user, text, side) {
     var line = $("<div></div>")
+        .addClass("msgline")
         .append(
             $("<span>" + user + "</span>")
             .css("text-align","left")
@@ -28,7 +29,7 @@ function addMessage(user, text, side) {
             .css("text-align",side)
         )
         .css("text-align","left")
-        .appendTo(".container-messages")
+        .prependTo(".container-messages")
 }
 
 var last = 1;
