@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import time
 import os
+import operator
 
 app = Flask(__name__)
 staff = []
@@ -41,6 +42,7 @@ def writetofile():
     file.close()
 
 
+
 @app.route("/")
 def hello():
     return render_template("index.html")
@@ -56,6 +58,12 @@ def form_add_patient():
     return render_template("form_add_patient.html")
 
 
+
+def sortQueue(patients):
+
+    patients.sort(key=operator.itemgetter('severity'))
+    return patients
+
 @app.route("/add_patient")
 def add_patient():
     new = {
@@ -67,6 +75,7 @@ def add_patient():
     patients.append(new)
     print(new)
     writetofile()
+    sortQueue(patients)
     return redirect("/")
 
 
@@ -119,3 +128,4 @@ def login():
 if __name__ == "__main__":
     print("http://127.0.0.1:5000")
     app.run(host="0.0.0.0")
+
