@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GreenVille Communications</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='index.css') }}">
+
+</head>
+<body>
+	<div id="hello">
+		<h1>Green<img src="{{ url_for('static', filename='plant.svg') }}" style="width:85px">Comm </h1>
+	</div>
+	<div>
+		<ul id="menu">
+			<li><a href="">Home</a><li>
+			<li><a href="{{ url_for('form_add_patient') }}">Add Patient</a><li>
+			<li><a href="{{ url_for('form_add_staff') }}">Add Staff</a><li>
+			<li><a href="{{ url_for('list_staff') }}">Staff Directory</a><li>
+            <li><a href="{{ url_for('list_patients') }}">Patient Directory</a><li>
+		</ul>
+	</div>
+    {% block body %}{% endblock %}
+</body>
+</html>

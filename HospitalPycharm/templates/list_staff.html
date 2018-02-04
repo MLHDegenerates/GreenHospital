@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Nurses</title>
-</head>
-<body>
-
-{% for user in staff %}
-<div>
-    <span>{{ user.first }}</span>
-    <span>{{ user.last}}</span>
+{% extends "layout.html" %}
+{% block body %}
+<div id="main-center">
+    {% for user in staff %}
+    <div class="list-user">
+        <span>{{ user.first }}</span>
+        <span>{{ user.last}}</span>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
-<br>
-<br>
-<a href="{{ url_for('index') }}">Back to homepage</a>
-
-</body>
-</html>
+{% endblock %}

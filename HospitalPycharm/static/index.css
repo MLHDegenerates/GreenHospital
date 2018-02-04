@@ -66,7 +66,7 @@ p{
 	padding-left: 3%;
 	padding-right: 3%;
 }
-#mainText{
+#main-center{
 	text-align: center;
 	text-indent: 2em;
 	margin-left:20%;
@@ -78,6 +78,22 @@ p{
 	background: rgba(0,0,0, 0.20);
 	
 }
+
+#main-center .list-user:nth-child(2) {
+    filter: brightness(85%);
+}
+
+.container-form{
+    margin:auto;
+    width:50%;
+    padding:20px;
+}
+
+.form-add-user{
+    text-align:right;
+    padding:15px
+}
+
 #map{
 	align-content: center;
 	margin: 10%;
