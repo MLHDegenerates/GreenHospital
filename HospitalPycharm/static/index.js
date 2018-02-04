@@ -1,12 +1,11 @@
 function onSend() {
-//    console.log("yeet")
-//    #.getJSON("/sendmsg",{
-//        message: "ohno",
-//
-//    })
     var value = $("#recipient").val();
-    console.log(value)
-    console.log(
-    $("#stafflist [value='" + value + "']").attr('data-value')
-    )
+    var name = $("#stafflist [value='" + value + "']").attr('data-value');
+    var msg = $("#messagebox").val();
+    console.log(value);
+    console.log(name);
+    $.getJSON("/sendmsg",{
+        message: msg,
+        username: name
+    })
 }
