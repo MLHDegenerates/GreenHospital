@@ -1,15 +1,45 @@
 from flask import Flask, render_template, request, redirect, url_for
 import time
+import os
 
 app = Flask(__name__)
 staff = []
 patients = []
 
-def compare(x,y):
-    return x["priority"] > y["priority"]
+if os.path.exists("users.txt"):
+    file = open("users.txt", "r")
+    for line in file:
+        data = line.split(" ")
+        if len(data) == 5:
+            patients.append({
+                "first": data[0],
+                "last": data[1],
+                "severity": data[2],
+                "time": data[3]
+            })
+        elif len(data) == 6:
+            staff.append({
+                "first": data[0],
+                "last": data[1],
+                "type": data[2],
+                "username": data[3],
+                "password": data[4]
+            })
+    file.close()
 
-def sortQueue():
-    patients.sort(key=lambda x: x["severity"])
+
+def writetofile():
+    file = open("users.txt", "w")
+    for pat in patients:
+        for i, v in pat.items():
+            file.write(str(v) + " ")
+        file.write("\n")
+    for doc in staff:
+        for i, v in doc.items():
+            file.write(str(v) + " ")
+        file.write("\n")
+    file.close()
+
 
 @app.route("/")
 def hello():
@@ -32,11 +62,11 @@ def add_patient():
         "first": request.args.get("fname"),
         "last": request.args.get("lname"),
         "severity": request.args.get("sevr"),
-        "time": time.time()
+        "time": int(time.time())
     }
     patients.append(new)
     print(new)
-    sortQueue()
+    writetofile()
     return redirect("/")
 
 
@@ -61,11 +91,11 @@ def add_staff():
         "username":
             (fname[:3] if len(fname) > 3 else fname)
             + (lname[:3] if len(lname) > 3 else lname)
-            + str(sum(ord(a) for a in (fname+lname)) % 100),
+            + str(sum(ord(a) for a in (fname + lname)) % 100),
         "password": request.args.get("pass")
     }
     staff.append(new)
-    sortQueue()
+    writetofile()
     print(new)
     return redirect("/")
 
@@ -84,7 +114,6 @@ def login():
         if user["username"] == username and user["password"] == password:
             return user["first"] + " " + user["last"]
     return "<Bad Login>"
-
 
 
 if __name__ == "__main__":
