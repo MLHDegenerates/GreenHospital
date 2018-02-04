@@ -13,7 +13,7 @@ function onSend() {
         sender: "server",
         receiver: name,
     })
-    addMessage("[server ⇨ " + value + "]", msg,"left")
+//    addMessage("[server ⇨ " + value + "]", msg,"left")
 }
 
 function addMessage(user, text, side) {
@@ -37,10 +37,12 @@ setInterval(function(){
         receiver:"server",
         time:last
     }).done(function(data){
+        if (data == undefined || data.length == 0)
+            return;
         last=data.last;
-        console.log(last)
+        console.log(data)
         for (i=0; i < data.messages.length; i++) {
-            addMessage("[" + data.messages[i].sender + " ⇨ server]", data.messages[i].message, "right")
+            addMessage("[" + data.messages[i].sender + " ⇨ " + data.messages[i].receiver + "]", data.messages[i].message, "right")
         }
     });
 },1000);

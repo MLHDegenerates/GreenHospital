@@ -130,8 +130,9 @@ def login():
 def fetchmsg():
     if len(messages) == 0:
         return "[]"
+    print(request.args)
     lastfetch = int(request.args.get("time"))
-    send = [a for a in messages if a["time"] > lastfetch and a["receiver"] == request.args.get("receiver")]
+    send = [a for a in messages if a["time"] > lastfetch and (a["receiver"] == request.args.get("receiver") or a["sender"] == request.args.get("receiver"))]
     return json.dumps({"last": messages[-1]["time"], "messages": send})
 
 @app.route("/sendmsg")
