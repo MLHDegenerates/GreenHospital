@@ -10,9 +10,10 @@ function onSend() {
     }
     $.getJSON("/sendmsg",{
         message: msg,
-        username: name
+        sender: "server",
+        receiver: name,
     })
-    addMessage(value, msg,"left")
+    addMessage("[server ⇨ " + value + "]", msg,"left")
 }
 
 function addMessage(user, text, side) {
@@ -30,16 +31,16 @@ function addMessage(user, text, side) {
         .appendTo(".container-messages")
 }
 
-var last = 0;
-
+var last = 1;
 setInterval(function(){
     var result = $.getJSON("/fetchmsg",{
-        username:"server",
+        receiver:"server",
         time:last
     }).done(function(data){
         last=data.last;
-        for (msg in data.messages) {
-            addMessage("yik",msg,"right")
+        console.log(last)
+        for (i=0; i < data.messages.length; i++) {
+            addMessage("[" + data.messages[i].sender + " ⇨ server]", data.messages[i].message, "right")
         }
     });
 },1000);

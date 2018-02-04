@@ -128,13 +128,10 @@ def login():
 
 @app.route("/fetchmsg")
 def fetchmsg():
-    lastfetch = int(request.args.get("time"))
     if len(messages) == 0:
         return "[]"
-    print(lastfetch)
-    print(messages[0]["time"])
-    print()
-    send = [a["message"] for a in messages if a["time"] > lastfetch and (request.args.get("username") == "server" or a["username"] == request.args.get("username"))]
+    lastfetch = int(request.args.get("time"))
+    send = [a for a in messages if a["time"] > lastfetch and a["receiver"] == request.args.get("receiver")]
     return json.dumps({"last": messages[-1]["time"], "messages": send})
 
 @app.route("/sendmsg")
@@ -142,7 +139,8 @@ def sendmsg():
     messages.append({
         "message": request.args.get("message"),
         "time": int(time.time()),
-        "username": request.args.get("username")
+        "receiver": request.args.get("receiver"),
+        "sender": request.args.get("sender")
     })
     return "ok"
 
