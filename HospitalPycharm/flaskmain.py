@@ -47,7 +47,7 @@ def writetofile():
 
 @app.route("/")
 def hello():
-    return render_template("index.html")
+    return render_template("index.html", staff=staff)
 
 
 @app.route("/index")

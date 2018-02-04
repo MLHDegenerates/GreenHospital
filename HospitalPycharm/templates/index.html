@@ -1,9 +1,19 @@
 {% extends "layout.html" %}
 {% block body %}
+<script type="text/javascript" src="{{ url_for('static',filename='index.js') }}"></script>
 <div id="main-center">
-    <p1>
-        Welcome to GreenComm.
-    </p1>
+    <div id="container-input">
+        <form>
+            <input id="messagebox" type="text" placeholder="Message">
+            <input id="recipient" type="text" list="stafflist" placeholder="Recipient">
+            <datalist id="stafflist">
+                {% for user in staff %}
+                <option data-value="{{ user.username }}" value="{{ user.first + ' ' + user.last }}">
+                {% endfor %}
+            </datalist>
+            <button type="button" onclick="onSend()">Send</button>
+        </form>
+    </div>
     <p>
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
         magna aliqua.
