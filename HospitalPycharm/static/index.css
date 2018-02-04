@@ -79,6 +79,10 @@ p {
     filter: brightness(85%);
 }
 
+.container-messages div:nth-child(even) {
+    filter: brightness(85%);
+}
+
 .container-form{
     margin:auto;
     width:50%;
