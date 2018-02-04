@@ -2,10 +2,12 @@ from flask import Flask, render_template, request, redirect, url_for
 import time
 import os
 import operator
+import json
 
 app = Flask(__name__)
 staff = []
 patients = []
+messages = []
 
 if os.path.exists("users.txt"):
     file = open("users.txt", "r")
@@ -121,9 +123,32 @@ def login():
     password = request.args.get("password")
     for user in staff:
         if user["username"] == username and user["password"] == password:
-            return user["first"] + " " + user["last"]
+            return user["username"]
     return "<Bad Login>"
 
+@app.route("/fetchmsg")
+def fetchmsg():
+    lastfetch = int(request.args.get("time"))
+    if len(messages) == 0:
+        return "[]"
+    print(lastfetch)
+    print(messages[0]["time"])
+    print()
+    send = [a["message"] for a in messages if a["time"] > lastfetch]
+    return json.dumps({"last": messages[-1]["time"], "messages": send})
+
+@app.route("/sendmsg")
+def sendmsg():
+    messages.append({
+        "message": request.args.get("message"),
+        "time": int(time.time()),
+        "username": request.args.get("username")
+    })
+    return "ok"
+
+@app.route("/compose")
+def compose():
+    return render_template("compose.html", staff=staff)
 
 if __name__ == "__main__":
     print("http://127.0.0.1:5000")

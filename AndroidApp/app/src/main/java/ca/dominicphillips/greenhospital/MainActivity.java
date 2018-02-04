@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    String url = "http://10.218.217.112:5000";
+    final static String url = "http://10.218.217.112:5000";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("Response is: " + response);
                     if (!response.equals("<Bad Login>")) {
                         Intent myIntent = new Intent(MainActivity.this, ProfileActivity.class);
-                        myIntent.putExtra("name", response);
+                        myIntent.putExtra("username", response);
                         MainActivity.this.startActivity(myIntent);
                     }
                 }
