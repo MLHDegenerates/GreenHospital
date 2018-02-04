@@ -1,15 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
 import time
+import operator
 
 app = Flask(__name__)
 staff = []
 patients = []
 
-def compare(x,y):
-    return x["priority"] > y["priority"]
 
-def sortQueue():
-    patients.sort(key=lambda x: x["severity"])
+
 
 @app.route("/")
 def hello():
@@ -26,6 +24,12 @@ def form_add_patient():
     return render_template("form_add_patient.html")
 
 
+
+def sortQueue(patients):
+
+    patients.sort(key=operator.itemgetter('severity'))
+    return patients
+
 @app.route("/add_patient")
 def add_patient():
     new = {
@@ -35,8 +39,7 @@ def add_patient():
         "time": time.time()
     }
     patients.append(new)
-    print(new)
-    sortQueue()
+    sortQueue(patients)
     return redirect("/")
 
 
@@ -65,8 +68,6 @@ def add_staff():
         "password": request.args.get("pass")
     }
     staff.append(new)
-    sortQueue()
-    print(new)
     return redirect("/")
 
 
@@ -82,10 +83,12 @@ def login():
     password = request.args.get("password")
     for user in staff:
         if user["username"] == username and user["password"] == password:
-            return "okay"
-    return "bad"
+            return user["first"] + " " + user["last"]
+    return "<Bad Login>"
 
 
 
 if __name__ == "__main__":
+    print("http://127.0.0.1:5000")
     app.run(host="0.0.0.0")
+
