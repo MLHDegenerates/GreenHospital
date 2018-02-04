@@ -134,7 +134,7 @@ def fetchmsg():
     print(lastfetch)
     print(messages[0]["time"])
     print()
-    send = [a["message"] for a in messages if a["time"] > lastfetch]
+    send = [a["message"] for a in messages if a["time"] > lastfetch and a["username"] == request.args.get("username")]
     return json.dumps({"last": messages[-1]["time"], "messages": send})
 
 @app.route("/sendmsg")
