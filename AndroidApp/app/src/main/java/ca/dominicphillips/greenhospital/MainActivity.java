@@ -1,12 +1,16 @@
 package ca.dominicphillips.greenhospital;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -25,29 +29,48 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final RequestQueue queue = Volley.newRequestQueue(this);
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#12412A")));
 
-        ((Button) findViewById(R.id.btnLogin)).setOnClickListener(new View.OnClickListener() {
+
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final CheckBox remuser = (CheckBox) findViewById(R.id.chkRemUsername);
+        final CheckBox rempass = (CheckBox) findViewById(R.id.chkRemPassword);
+        final TextView txtName = (TextView) findViewById(R.id.txtUsername);
+        final TextView txtPass = (TextView) findViewById(R.id.txtPassword);
+
+        remuser.setChecked(prefs.getBoolean("rem_username",true));
+        rempass.setChecked(prefs.getBoolean("rem_password",false));
+
+        if (remuser.isChecked())
+            txtName.setText(prefs.getString("txt_username", null));
+        if (rempass.isChecked())
+            txtPass.setText(prefs.getString("txt_password", null));
+
+        final RequestQueue queue = Volley.newRequestQueue(this);
+        findViewById(R.id.btnLogin).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final TextView mTextView = findViewById(R.id.textinfo);
-//                queue.getCache().clear(); // ugly hack
-                queue.add(new LoginRequest(((TextView) findViewById(R.id.txtUsername)).getText().toString(), ((TextView) findViewById(R.id.txtPassword)).getText().toString()));
+                SharedPreferences.Editor editpre = prefs.edit();
+                editpre.putBoolean("rem_username",remuser.isChecked());
+                editpre.putBoolean("rem_password",rempass.isChecked());
+                editpre.putString("txt_username", remuser.isChecked() ? txtName.getText().toString() : "");
+                editpre.putString("txt_password", rempass.isChecked() ? txtPass.getText().toString() : "");
+                editpre.apply();
+
+                queue.getCache().clear(); // ugly hack
+                queue.add(new LoginRequest(txtName.getText().toString(), txtPass.getText().toString()));
             }
         });
     }
 
     class LoginRequest extends StringRequest {
-
         LoginRequest(String username, String password) {
             super(Method.GET, url + "/login?username="+username+"&password="+password, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    // Display the first 500 characters of the response string.
                     System.out.println("Response is: " + response);
                 }
             }, new Response.ErrorListener() {
