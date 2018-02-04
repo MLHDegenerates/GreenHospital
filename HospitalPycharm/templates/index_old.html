@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type=text/javascript src="{{ url_for('static', filename='jquery-3.3.1.min.js') }}"></script>
+    <meta charset="UTF-8">
+    <title>hospital</title>
+
+</head>
+<body>
+
+<a href="{{ url_for('form_add_patient') }}">Add a patient</a>
+<br>
+<br>
+<a href="{{ url_for('list_patients') }}">Access patients</a>
+<br>
+<br>
+<a href="{{ url_for('form_add_staff') }}">Add a staff member</a>
+<br>
+<br>
+<a href="{{ url_for('list_staff') }}">Access staff members</a>
+<br>
+<br>
+<a href="{{ url_for('compose') }}">Compose Message</a>
+<br>
+</body>
+</html>
