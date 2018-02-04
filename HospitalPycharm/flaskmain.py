@@ -82,17 +82,11 @@ def login():
     password = request.args.get("password")
     for user in staff:
         if user["username"] == username and user["password"] == password:
-            return "okay"
-    return "bad"
+            return user["first"] + " " + user["last"]
+    return "<Bad Login>"
 
-@app.route("/edit")
-def edit():
-    print(request.args.get("pati#"))
-    print(request.args.get("fname"))
-    print(request.args.get("lname"))
-    print(request.args.get("sevr"))
-    return redirect("/")
 
 
 if __name__ == "__main__":
+    print("http://127.0.0.1:5000")
     app.run(host="0.0.0.0")
